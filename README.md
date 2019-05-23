@@ -26,7 +26,8 @@ wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
 # or download *XZ compressed source tarball* from www.python.org
 tar xf Python-3.7.3.tar.xz
 cd Python-3.7.3
-./configure --enable-optimizations
+./configure --enable-optimizations \
+            --enable-shared
 make -j8
 sudo make altinstall
 ```
