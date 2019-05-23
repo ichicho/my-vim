@@ -16,6 +16,7 @@ sudo make install
 ```
 
 Reference:
+
 https://vim-jp.org/docs/build_linux.html
 
 https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
@@ -23,7 +24,7 @@ https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 ## Build Python from source
 ```
 wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
-# or download *XZ compressed source tarball* from www.python.org
+# or download XZ-compressed-source-tarball from www.python.org
 tar xf Python-3.7.3.tar.xz
 cd Python-3.7.3
 ./configure --enable-optimizations
