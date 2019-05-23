@@ -9,7 +9,6 @@ cd vim
             --enable-python3interp=yes \
             --with-python3-command=/usr/local/bin/python3.7 \
             --with-python3-config-dir=/usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu \
-            --enable-gui=auto \
             --enable-cscope
 make
 sudo make install
