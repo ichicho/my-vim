@@ -19,7 +19,6 @@ RUN git clone https://github.com/ichicho/my-vim.git && \
     ./build_python.sh
 
 RUN useradd -ms /bin/bash ichicho && \
-    echo 'ichicho:1230' | chpasswd && \
     usermod -aG sudo ichicho
 USER ichicho
 WORKDIR /home/ichicho
