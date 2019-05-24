@@ -23,7 +23,8 @@ RUN git clone https://github.com/ichicho/my-vim.git && \
     ./build_python.sh
 
 RUN useradd -ms /bin/bash ichicho && \
-    usermod -aG sudo ichicho
+    usermod -aG sudo ichicho && \
+    echo "ichicho ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/ichicho
 USER ichicho
 WORKDIR /home/ichicho
 
