@@ -22,6 +22,10 @@ RUN git clone https://github.com/ichicho/my-vim.git && \
     chmod +x build_python.sh && \
     ./build_python.sh
 
+RUN cd my-vim && \
+    chmod +x build_vim.sh && \
+    ./build_vim.sh
+
 RUN useradd -ms /bin/bash ichicho && \
     usermod -aG sudo ichicho && \
     echo "ichicho ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/ichicho

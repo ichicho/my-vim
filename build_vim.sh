@@ -15,4 +15,4 @@ make
 make install
 
 cd ~
-rm -r vim
+rm -rf vim
