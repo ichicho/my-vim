@@ -14,8 +14,12 @@ RUN apt update && \
                 gettext libtinfo-dev libacl1-dev libgpm-dev && \
     rm -rf /var/lib/apt/lists/*
 
+RUN apt update && \
+    apt install -y --no-install-recommends ca-certificates
+
 RUN git clone https://github.com/ichicho/my-vim.git && \
     cd my-vim && \
+    chmod +x build_python.sh && \
     ./build_python.sh
 
 RUN useradd -ms /bin/bash ichicho && \

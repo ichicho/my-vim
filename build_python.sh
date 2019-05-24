@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd ~
 curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
 tar xf Python-3.7.3.tar.xz
 
@@ -10,6 +11,10 @@ cd Python-3.7.3
 make -j8
 make altinstall
 
-ln -s /usr/local/bin/python3.7 /usr/local/bin/python
-ln -s /usr/local/bin/python3.7 /usr/local/bin/python3
+cd /usr/local/bin
+ln -s python3.7 python
+ln -s python3.7 python3
 
+cd ~
+rm Python-3.7.3.tar.xz
+rm -r Python-3.7.3
