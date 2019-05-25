@@ -9,11 +9,11 @@ cd Python-3.7.3
             --enable-shared \
             LDFLAGS="-Wl,--rpath=/usr/local/lib"
 make -j$(nproc)
-make altinstall
+sudo make altinstall -j$(nproc)
 
 cd /usr/local/bin
-ln -s python3.7 python
-ln -s python3.7 python3
+sudo ln -s python3.7 python
+sudo ln -s python3.7 python3
 
 rm ~/Python-3.7.3.tar.xz
 rm -rf ~/Python-3.7.3

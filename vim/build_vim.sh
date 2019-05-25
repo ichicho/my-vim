@@ -11,7 +11,7 @@ cd vim
             --with-python3-config-dir=/usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu \
             --enable-cscope \
             LDFLAGS="-Wl,--rpath=/usr/local/lib"
-make
-make install
+make -j$(nproc)
+sudo make install -j$(nproc)
 
 rm -rf ~/vim
