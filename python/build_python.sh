@@ -15,5 +15,5 @@ cd /usr/local/bin
 sudo ln -s python3.7 python
 sudo ln -s python3.7 python3
 
-rm ~/Python-3.7.3.tar.xz
-rm -rf ~/Python-3.7.3
+# rm ~/Python-3.7.3.tar.xz
+# rm -rf ~/Python-3.7.3
