@@ -17,18 +17,21 @@ RUN apt update && \
 WORKDIR /root
 RUN git clone https://github.com/ichicho/my-vim.git
 
-RUN cd my-vim && \
-    chmod +x build_python.sh && \
-    ./build_python.sh
+RUN cd my-vim/python && \
+    chmod +x build_python.sh && ./build_python.sh
 
-RUN cd my-vim && \
-    chmod +x build_vim.sh && \
-    ./build_vim.sh
+RUN cd my-vim/vim && \
+    chmod +x build_vim.sh && ./build_vim.sh
 
-RUN useradd -ms /bin/bash ichicho && \
-    usermod -aG sudo ichicho && \
-    echo "ichicho ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/ichicho
-USER ichicho
-WORKDIR /home/ichicho
+RUN cd my-vim/vim/plugins/ycm && \
+    chmod +x install_clang+llvm.sh && ./install_clang+llvm.sh && \
+    chmod +x install_clang+llvm.sh && ./install_cmake.sh && \
+    chmod +x build_ycm.sh && ./build_ycm.sh
+
+RUN useradd -ms /bin/bash vimmer && \
+    usermod -aG sudo vimmer && \
+    echo "vimmer ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/vimmer
+USER vimmer
+WORKDIR /home/vimmer
 
 CMD tail -f /dev/null

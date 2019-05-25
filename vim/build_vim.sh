@@ -14,5 +14,4 @@ cd vim
 make
 make install
 
-cd ~
-rm -rf vim
+rm -rf ~/vim
