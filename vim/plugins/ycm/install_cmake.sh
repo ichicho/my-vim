@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ~
-wget https://github.com/Kitware/CMake/releases/download/v3.14.4/cmake-3.14.4.tar.gz
+curl -OL https://github.com/Kitware/CMake/releases/download/v3.14.4/cmake-3.14.4.tar.gz
 tar xf cmake-3.14.4.tar.gz
 cd cmake-3.14.4
 ./configure

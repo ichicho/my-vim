@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ~
-curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
+curl -OL https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
 tar xf Python-3.7.3.tar.xz
 
 cd Python-3.7.3
