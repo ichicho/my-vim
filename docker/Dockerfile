@@ -38,12 +38,6 @@ RUN cd my-vim/vim && \
 
 RUN cd my-vim/vim/plugins/ycm && chmod +x install_clang+llvm.sh && ./install_clang+llvm.sh
 RUN cd my-vim/vim/plugins/ycm && chmod +x install_cmake.sh && ./install_cmake.sh
-RUN cd my-vim/vim/plugins/ycm && chmod +x build_ycm.sh && ./build_ycm.sh
-
-RUN useradd -ms /bin/bash vimmer && \
-    usermod -aG sudo vimmer && \
-    echo "vimmer ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/vimmer
-USER vimmer
-WORKDIR /home/vimmer
+RUN cd my-vim && git pull && cd my-vim/vim/plugins/ycm && chmod +x build_ycm.sh && ./build_ycm.sh
 
 CMD tail -f /dev/null
