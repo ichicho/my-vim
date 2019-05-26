@@ -15,3 +15,5 @@ cmake -G "Unix Makefiles" -DPATH_TO_LLVM_ROOT=/opt/clang+llvm . ~/.vim/pack/plug
       -DUSE_PYTHON2=OFF \
       -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 cmake --build . --target ycm_core
+cp compile_commands.json ~/compile_commands.json
+rm -r ycm_build

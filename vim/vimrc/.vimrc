@@ -1,12 +1,3 @@
-" Manage plugins with vim-plug
-call plug#begin()
-
-" Increase vim-plug timeout for YouCompleteMe.
-let g:plug_timeout = 300  
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-
-call plug#end()
-
 " Enable syntax highlighting
 syntax on
 " Enable file type based indentation
@@ -35,6 +26,3 @@ set hlsearch
 set incsearch
 
 set backspace=indent,eol,start
-
-let g:ycm_keep_logfiles = 1
-let g:ycm_log_level = 'debug'
