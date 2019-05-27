@@ -13,8 +13,7 @@ WORKDIR /home/vimmer
 RUN sudo apt update && \
     sudo apt install -y --no-install-recommends \
                      curl \
-                     git \
-                     ca-certificates && \
+                     git && \
     sudo rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/ichicho/my-vim.git && \
@@ -23,6 +22,8 @@ RUN git clone https://github.com/ichicho/my-vim.git && \
 
 RUN cd my-vim/conda && \
     ./install_miniconda.sh
+
+RUN printenv
 
 # RUN cd my-vim/vim && \
 #     chmod +x build_vim.sh && ./build_vim.sh
