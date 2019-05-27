@@ -12,6 +12,7 @@ WORKDIR /home/vimmer
 
 RUN sudo apt update && \
     sudo apt install -y --no-install-recommends \
+                     ca-certificates \
                      curl \
                      git && \
     sudo rm -rf /var/lib/apt/lists/*
@@ -22,6 +23,8 @@ RUN git clone https://github.com/ichicho/my-vim.git && \
 
 RUN cd my-vim/conda && \
     ./install_miniconda.sh
+
+RUN ~/miniconda/bin/conda activate myenv
 
 RUN printenv
 

@@ -8,5 +8,4 @@ chmod +x ~/miniconda.sh
 rm ~/miniconda.sh
 ~/miniconda/bin/conda update conda
 
-~/miniconda/bin/conda create --name myenv python=$PYTHON_VERSION
-~/miniconda/bin/conda activate myenv
+~/miniconda/bin/conda create -y --name myenv python=$PYTHON_VERSION
