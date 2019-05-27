@@ -1,6 +1,8 @@
 FROM ubuntu:18.04
 LABEL maintainer="Yichi Zhang <ichicho@keio.jp>"
 
+SHELL ["/bin/bash", "-c"]
+
 RUN apt update && \
     apt install -y --no-install-recommends sudo
 
@@ -18,13 +20,15 @@ RUN sudo apt update && \
     sudo rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/ichicho/my-vim.git && \
-    cd my-vim && \
+    cd ~/my-vim && \
     git checkout conda
 
-RUN cd my-vim/conda && \
+RUN cd ~/my-vim && \
+    git pull origin conda && \
+    cd ~/my-vim/conda && \
     ./install_miniconda.sh
 
-RUN ~/miniconda/bin/conda activate myenv
+RUN conda activate myenv
 
 RUN printenv
 
