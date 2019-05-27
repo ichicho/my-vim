@@ -17,7 +17,9 @@ RUN sudo apt update && \
                      ca-certificates && \
     sudo rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/ichicho/my-vim.git
+RUN git clone https://github.com/ichicho/my-vim.git && \
+    cd my-vim && \
+    git checkout conda
 
 RUN cd my-vim/conda && \
     ./install_miniconda.sh
