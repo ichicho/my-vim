@@ -1,16 +1,18 @@
 FROM ubuntu:18.04
 LABEL maintainer="Yichi Zhang <ichicho@keio.jp>"
 
+ARG user=vimmer
+
 SHELL ["/bin/bash", "-c"]
 
 RUN apt update && \
     apt install -y --no-install-recommends sudo
 
-RUN useradd -ms /bin/bash vimmer && \
-    usermod -aG sudo vimmer && \
-    echo "vimmer ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/vimmer
-USER vimmer
-WORKDIR /home/vimmer
+RUN useradd -ms /bin/bash $user && \
+    usermod -aG sudo $user && \
+    echo "$user ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/$user
+USER $user
+WORKDIR $HOME
 
 RUN sudo apt update && \
     sudo apt install -y --no-install-recommends \
@@ -19,19 +21,23 @@ RUN sudo apt update && \
                      git && \
     sudo rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/ichicho/my-vim.git && \
-    cd ~/my-vim && \
-    git checkout conda
+# Download code for installation
+RUN git clone https://github.com/ichicho/my-vim.git
+WORKDIR $HOME/my-vim
+RUN git checkout conda
 
-RUN cd ~/my-vim && \
-    git pull origin conda && \
-    cd ~/my-vim/conda && \
-    ./install_miniconda.sh
+# Install miniconda
+WORKDIR $HOME/my-vim
+RUN git pull origin conda && \
+    conda/install_miniconda.sh
 
-# RUN echo "source activate myenv" > ~/.bashrc
-# ENV PATH /home/vimmer/miniconda/envs/myenv/bin:$PATH
+# Set environment variable for bash in docker file
+RUN sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</ p' $HOME/.bashrc > $HOME/.bash_conda_init 
+ENV BASH_ENV=~/.bash_conda_init
 
-RUN printenv && which python
+RUN echo "conda activate myenv" >> $HOME/.bash_conda_init 
+
+RUN printenv
 
 # RUN cd my-vim/vim && \
 #     chmod +x build_vim.sh && ./build_vim.sh
