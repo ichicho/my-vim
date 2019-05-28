@@ -2,6 +2,7 @@ FROM ubuntu:18.04
 LABEL maintainer="Yichi Zhang <ichicho@keio.jp>"
 
 ARG user=vimmer
+ARG home=/home/$user
 
 SHELL ["/bin/bash", "-c"]
 
@@ -12,7 +13,7 @@ RUN useradd -ms /bin/bash $user && \
     usermod -aG sudo $user && \
     echo "$user ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/$user
 USER $user
-WORKDIR $HOME
+WORKDIR $home
 
 RUN sudo apt update && \
     sudo apt install -y --no-install-recommends \
@@ -23,24 +24,22 @@ RUN sudo apt update && \
 
 # Download code for installation
 RUN git clone https://github.com/ichicho/my-vim.git
-WORKDIR $HOME/my-vim
+WORKDIR $home/my-vim
 RUN git checkout conda
 
+WORKDIR $home/my-vim
+
 # Install miniconda
-WORKDIR $HOME/my-vim
-RUN git pull origin conda && \
-    conda/install_miniconda.sh
+RUN git pull origin conda && conda/install_miniconda.sh
 
 # Set environment variable for bash in docker file
-RUN sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</ p' $HOME/.bashrc > $HOME/.bash_conda_init 
+RUN sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</ p' $home/.bashrc > $home/.bash_conda_init 
+RUN echo "conda activate myenv" >> $home/.bash_conda_init && \
+    echo "conda activate myenv" >> $home/.bashrc 
 ENV BASH_ENV=~/.bash_conda_init
 
-RUN echo "conda activate myenv" >> $HOME/.bash_conda_init 
-
-RUN printenv
-
-# RUN cd my-vim/vim && \
-#     chmod +x build_vim.sh && ./build_vim.sh
+# Build vim with python3 support
+RUN git pull origin conda && vim/build_vim.sh
 
 # RUN cd my-vim/vim/vimrc && \
 #     chmod +x set_vimrc.sh && ./set_vimrc.sh
