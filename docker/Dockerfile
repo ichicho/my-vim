@@ -45,9 +45,11 @@ RUN git pull origin conda && vim/build_vim.sh
 # Configure vim
 RUN git pull origin conda && vim/vimrc/set_vimrc.sh $repo
 
-# RUN cd my-vim/vim/plugins/ycm && \
-#     chmod +x install_clang+llvm.sh && ./install_clang+llvm.sh && \
-#     chmod +x install_cmake.sh && ./install_cmake.sh && \
-#     chmod +x build_ycm.sh && ./build_ycm.sh
+# Build YouCompleteMe with C support
+# for debug
+RUN curl -OL http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+RUN git pull origin conda && \
+    vim/plugins/ycm/install_clang+llvm.sh && \
+    vim/plugins/ycm/build_ycm.sh
 
 CMD tail -f /dev/null
