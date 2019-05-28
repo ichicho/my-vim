@@ -17,6 +17,6 @@ cd ~/vim
 	    --prefix=$CONDA_PREFIX \
             LDFLAGS="-Wl,--rpath=$CONDA_PREFIX/lib"
 make -j$(nproc)
-sudo make install -j$(nproc)
+make install -j$(nproc)
 
 rm -rf ~/vim
