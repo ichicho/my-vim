@@ -1,5 +1,8 @@
 #!/bin/bash
 
+conda install -y gxx_linux-64 && \
+	         make
+
 cd ~
 git clone https://github.com/vim/vim.git
 
