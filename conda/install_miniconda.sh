@@ -10,3 +10,4 @@ rm ~/miniconda.sh
 $CONDA_PREFIX/bin/conda update conda
 
 $CONDA_PREFIX/bin/conda create -y --name myenv python=$PYTHON_VERSION
+$CONDA_PREFIX/bin/conda init bash

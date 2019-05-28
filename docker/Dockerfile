@@ -28,8 +28,8 @@ RUN cd ~/my-vim && \
     cd ~/my-vim/conda && \
     ./install_miniconda.sh
 
-RUN echo "source activate myenv" > ~/.bashrc
-ENV PATH /home/vimmer/miniconda/envs/myenv/bin:$PATH
+# RUN echo "source activate myenv" > ~/.bashrc
+# ENV PATH /home/vimmer/miniconda/envs/myenv/bin:$PATH
 
 RUN printenv && which python
 
