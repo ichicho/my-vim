@@ -3,6 +3,7 @@ LABEL maintainer="Yichi Zhang <ichicho@keio.jp>"
 
 ARG user=vimmer
 ARG home=/home/$user
+ARG repo=$home/my-vim
 
 SHELL ["/bin/bash", "-c"]
 
@@ -41,8 +42,8 @@ ENV BASH_ENV=~/.bash_conda_init
 # Build vim with python3 support
 RUN git pull origin conda && vim/build_vim.sh
 
-# RUN cd my-vim/vim/vimrc && \
-#     chmod +x set_vimrc.sh && ./set_vimrc.sh
+# Configure vim
+RUN git pull origin conda && vim/vimrc/set_vimrc.sh $repo
 
 # RUN cd my-vim/vim/plugins/ycm && \
 #     chmod +x install_clang+llvm.sh && ./install_clang+llvm.sh && \

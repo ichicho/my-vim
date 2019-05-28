@@ -1,5 +1,6 @@
 " Enable syntax highlighting
 syntax on
+
 " Enable file type based indentation
 filetype plugin indent on
 
