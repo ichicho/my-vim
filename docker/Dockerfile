@@ -50,6 +50,7 @@ RUN git pull origin conda && vim/vimrc/set_vimrc.sh $repo
 RUN cd ~ && curl -OL http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
 RUN git pull origin conda && \
     vim/plugins/ycm/install_clang+llvm.sh && \
-    vim/plugins/ycm/build_ycm.sh
+    vim/plugins/ycm/install_cmake.sh
+RUN vim/plugins/ycm/build_ycm.sh
 
 CMD tail -f /dev/null
