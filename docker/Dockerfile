@@ -3,7 +3,8 @@ LABEL maintainer="Yichi Zhang <ichicho@keio.jp>"
 
 ARG user=vimmer
 ARG home=/home/$user
-ARG repo=$home/my-vim
+ARG env=myenv
+ARG python_version=3.7.3
 
 SHELL ["/bin/bash", "-c"]
 
@@ -31,12 +32,12 @@ RUN git checkout conda
 WORKDIR $home/my-vim
 
 # Install miniconda
-RUN git pull origin conda && conda/install_miniconda.sh
+RUN git pull origin conda && conda/install_miniconda.sh && conda create -y --name $env python=$python_version
 
 # Set environment variable for bash in docker file
 RUN sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</ p' $home/.bashrc > $home/.bash_conda_init 
-RUN echo "conda activate myenv" >> $home/.bash_conda_init && \
-    echo "conda activate myenv" >> $home/.bashrc 
+RUN echo "conda activate $env" >> $home/.bash_conda_init && \
+    echo "conda activate $env" >> $home/.bashrc
 ENV BASH_ENV=~/.bash_conda_init
 
 # Build vim with python3 support
@@ -48,8 +49,9 @@ RUN git pull origin conda && vim/vimrc/set_vimrc.sh
 # Build YouCompleteMe with C support
 # for debug
 RUN git pull origin conda && \
-    vim/plugins/ycm/install_clang+llvm.sh && \
+    vim/plugins/ycm/install_clang+llvm.sh
 RUN vim/plugins/ycm/build_ycm.sh
 
 
+# Keep container running
 CMD tail -f /dev/null
