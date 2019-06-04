@@ -31,7 +31,7 @@ RUN git checkout c-conda
 WORKDIR $home/my-vim
 
 # Install clang+llvm
-RUN base_c/install_clang+llvm.sh
+RUN git pull origin c-conda && base_c/install_clang+llvm.sh
 # 
 # # Install miniconda
 # RUN git pull origin conda && conda/install_miniconda.sh
