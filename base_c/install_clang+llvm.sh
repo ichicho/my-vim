@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sudo apt update && \
-     apt install -y --no-install-recommends \
+sudo apt update
+sudo apt install -y --no-install-recommends \
                  curl \
                  xz-utils
 
