@@ -55,7 +55,7 @@ RUN git pull origin c-conda && vim/vimrc/set_vimrc.sh
 
 # Build YouCompleteMe with C support
 RUN git pull origin c-conda && \
-    vim/plugins/ycm/install_cmake.sh
+    vim/plugins/ycm/install_cmake.sh && echo 1
 RUN vim/plugins/ycm/build_ycm.sh
 
 
