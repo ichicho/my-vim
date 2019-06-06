@@ -7,10 +7,9 @@ cd ~/vim
 ./configure --with-features=huge \
             --enable-multibyte \
             --enable-python3interp=yes \
-            --enable-cscope \
+            --with-local-dir=$CONDA_PREFIX \
 	    --prefix=$CONDA_PREFIX \
             LDFLAGS="-Wl,--rpath=$CONDA_PREFIX/lib"
-# --with-local-dir=$CONDA_PREFIX \
 make -j$(nproc)
 make install -j$(nproc)
 
