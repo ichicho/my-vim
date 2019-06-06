@@ -49,13 +49,13 @@ RUN conda create -y --name $env python=$python_version && \
 
 # Build vim with python3 support
 RUN git pull origin c-conda && vim/build_vim.sh
-# 
-# # Configure vim
-# RUN git pull origin conda && vim/vimrc/set_vimrc.sh
-# 
-# # Build YouCompleteMe with C support
-# # for debug
-# RUN git pull origin conda && \
+
+# Configure vim
+RUN git pull origin c-conda && vim/vimrc/set_vimrc.sh
+
+# Build YouCompleteMe with C support
+# for debug
+RUN git pull origin c-conda && \
 #     vim/plugins/ycm/install_clang+llvm.sh
 # RUN vim/plugins/ycm/build_ycm.sh
 
