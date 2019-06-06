@@ -2,9 +2,9 @@
 
 sudo apt update
 sudo apt install -y --no-install-recommends \
-                 build-essential \
                  curl \
-                 xz-utils
+                 xz-utils \
+                 build-essential
 
 cd ~
 curl -OL http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz

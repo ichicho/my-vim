@@ -8,6 +8,7 @@ ARG python_version=3.7.3
 
 SHELL ["/bin/bash", "-c"]
 
+# Create user and add to sudo group
 RUN apt update && \
     apt install -y --no-install-recommends sudo && \
     useradd -ms /bin/bash $user && \
@@ -16,6 +17,7 @@ RUN apt update && \
 USER $user
 WORKDIR $home
 
+# Install ssl and download tool
 RUN sudo apt update && \
     sudo apt install -y --no-install-recommends \
                      ca-certificates \
@@ -32,13 +34,13 @@ WORKDIR $home/my-vim
 
 # Install clang+llvm
 RUN git pull origin c-conda && base_c/install_clang+llvm.sh
-# 
-# # Install miniconda
-# RUN git pull origin conda && conda/install_miniconda.sh
-# 
-# # Set environment variable for bash in docker file
-# RUN sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</ p' $home/.bashrc > $home/.bash_conda_init 
-# ENV BASH_ENV=~/.bash_conda_init
+
+# Install miniconda
+RUN git pull origin conda && conda_python/install_miniconda.sh
+
+# Set environment variable for bash in docker file
+RUN sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</ p' $home/.bashrc > $home/.bash_conda_init 
+ENV BASH_ENV=~/.bash_conda_init
 # 
 # # Create new environment
 # RUN conda create -y --name $env python=$python_version && \
