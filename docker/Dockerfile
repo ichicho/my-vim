@@ -36,19 +36,19 @@ WORKDIR $home/my-vim
 RUN git pull origin c-conda && base_c/install_clang+llvm.sh
 
 # Install miniconda
-RUN git pull origin conda && conda_python/install_miniconda.sh
+RUN git pull origin c-conda && conda_python/install_miniconda.sh
 
 # Set environment variable for bash in docker file
 RUN sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</ p' $home/.bashrc > $home/.bash_conda_init 
 ENV BASH_ENV=~/.bash_conda_init
-# 
-# # Create new environment
-# RUN conda create -y --name $env python=$python_version && \
-#     echo "conda activate $env" >> $home/.bash_conda_init && \
-#     echo "conda activate $env" >> $home/.bashrc
-# 
-# # Build vim with python3 support
-# RUN git pull origin conda && vim/build_vim.sh
+
+# Create new environment
+RUN conda create -y --name $env python=$python_version && \
+    echo "conda activate $env" >> $home/.bash_conda_init && \
+    echo "conda activate $env" >> $home/.bashrc
+
+# Build vim with python3 support
+RUN git pull origin c-conda && vim/build_vim.sh
 # 
 # # Configure vim
 # RUN git pull origin conda && vim/vimrc/set_vimrc.sh
