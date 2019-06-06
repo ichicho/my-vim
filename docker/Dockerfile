@@ -28,15 +28,12 @@ RUN sudo apt update && \
 # Download code for installation
 RUN git clone https://github.com/ichicho/my-vim.git
 WORKDIR $home/my-vim
-RUN git checkout c-conda
 
-WORKDIR $home/my-vim
-
-# Install clang+llvm
-RUN git pull origin c-conda && base_c/install_clang+llvm.sh
+# Install C
+RUN base_c/install_clang+llvm.sh
 
 # Install miniconda
-RUN git pull origin c-conda && conda_python/install_miniconda.sh
+RUN conda_python/install_miniconda.sh
 
 # Set environment variable for bash in docker file
 RUN sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</ p' $home/.bashrc > $home/.bash_conda_init 
@@ -48,15 +45,14 @@ RUN conda create -y --name $env python=$python_version && \
     echo "conda activate $env" >> $home/.bashrc
 
 # Build vim with python3 support
-RUN git pull origin c-conda && vim/build_vim.sh
+RUN vim/build_vim.sh
 
 # Configure vim
-RUN git pull origin c-conda && vim/vimrc/set_vimrc.sh
+RUN vim/vimrc/set_vimrc.sh
 
 # Build YouCompleteMe with C support
-RUN git pull origin c-conda && \
-    vim/plugins/ycm/install_cmake.sh && echo 1
-RUN vim/plugins/ycm/build_ycm.sh
+RUN vim/plugins/ycm/install_cmake.sh && \
+    vim/plugins/ycm/build_ycm.sh
 
 
 # Keep container running
