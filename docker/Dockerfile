@@ -54,6 +54,7 @@ RUN vim/vimrc/set_vimrc.sh
 RUN vim/plugins/ycm/install_cmake.sh && \
     vim/plugins/ycm/build_ycm.sh
 
-
+# Back to $HOME
+WORKDIR $home
 # Keep container running
 CMD tail -f /dev/null
