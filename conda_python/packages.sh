@@ -1,6 +1,6 @@
 #!/bin/bash
 
-conda install -y \ 
+conda install -y \
               numpy \
 	      matplotlib \
 	      pandas \
