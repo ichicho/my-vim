@@ -28,6 +28,7 @@ RUN sudo apt update && \
 # Download code for installation
 RUN git clone https://github.com/ichicho/my-vim.git
 WORKDIR $home/my-vim
+RUN git checkout torch
 
 # Install miniconda
 RUN conda_python/install_miniconda.sh
