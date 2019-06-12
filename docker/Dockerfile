@@ -31,7 +31,7 @@ WORKDIR $home/my-vim
 RUN git checkout torch
 
 # Install miniconda
-RUN conda_python/install_miniconda.sh
+RUN conda_python/miniconda.sh
 
 # Set environment variable for bash in docker file
 RUN sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</ p' $home/.bashrc > $home/.bash_conda_init 
@@ -42,15 +42,18 @@ RUN conda create -y --name $env python=$python_version && \
     echo "conda activate $env" >> $home/.bash_conda_init && \
     echo "conda activate $env" >> $home/.bashrc
 
+# Install packages
+RUN conda_python/packages.sh
+
 # Build vim with python3 support
-RUN vim/build_vim.sh
+RUN vim/vim.sh
 
 # Configure vim
-RUN vim/vimrc/set_vimrc.sh
+RUN vim/vimrc/vimrc.sh
 
 # Build YouCompleteMe with C support
-RUN vim/plugins/ycm/install_cmake.sh && \
-    vim/plugins/ycm/build_ycm.sh
+RUN vim/plugins/ycm/cmake.sh && \
+    vim/plugins/ycm/ycm.sh
 
 # Back to $HOME
 WORKDIR $home
