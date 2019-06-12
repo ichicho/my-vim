@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM nvidia/cuda:10.0-cudnn7-runtime-ubuntu18.04
 LABEL maintainer="Yichi Zhang <ichicho@keio.jp>"
 
 ARG user=vimmer
@@ -28,9 +28,6 @@ RUN sudo apt update && \
 # Download code for installation
 RUN git clone https://github.com/ichicho/my-vim.git
 WORKDIR $home/my-vim
-
-# Install C
-RUN base_c/install_clang+llvm.sh
 
 # Install miniconda
 RUN conda_python/install_miniconda.sh
