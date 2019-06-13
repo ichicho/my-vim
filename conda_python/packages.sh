@@ -5,7 +5,7 @@ conda install -y \
 	      matplotlib \
 	      pandas \
 	      jupyterlab \
-	      opencv \
+	      opencv
 conda install -y -c pytorch \
 	      pytorch \
 	      magma-cuda100
