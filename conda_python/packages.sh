@@ -6,6 +6,9 @@ conda install -y \
 	      pandas \
 	      jupyterlab \
 	      opencv \
-	      pytorch
+conda install -y -c pytorch \
+	      pytorch \
+	      magma-cuda100
 conda install -y -c conda-forge \
               pydicom
+conda clean -ya

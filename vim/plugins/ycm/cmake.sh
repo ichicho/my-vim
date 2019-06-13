@@ -1,8 +1,5 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt install -y --no-install-recommends curl
-
 cd ~
 curl -OL https://github.com/Kitware/CMake/releases/download/v3.14.5/cmake-3.14.5-Linux-x86_64.sh
 chmod +x ~/cmake-3.14.5-Linux-x86_64.sh

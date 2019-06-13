@@ -8,22 +8,22 @@ ARG python_version=3.7.3
 
 SHELL ["/bin/bash", "-c"]
 
-# Create user and add to sudo group
+# Install basic tools
 RUN apt update && \
-    apt install -y --no-install-recommends sudo && \
-    useradd -ms /bin/bash $user && \
+    apt install -y --no-install-recommends \
+                sudo \
+                ca-certificates \
+                curl \
+                git \
+                build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create user and add to sudo group
+RUN useradd -ms /bin/bash $user && \
     usermod -aG sudo $user && \
     echo "$user ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/$user
 USER $user
 WORKDIR $home
-
-# Install ssl and download tool
-RUN sudo apt update && \
-    sudo apt install -y --no-install-recommends \
-                     ca-certificates \
-                     curl \
-                     git && \
-    sudo rm -rf /var/lib/apt/lists/*
 
 # Download code for installation
 RUN git clone https://github.com/ichicho/my-vim.git
@@ -44,6 +44,9 @@ RUN conda create -y --name $env python=$python_version && \
 
 # Install packages
 RUN conda_python/packages.sh
+# Set password for jupyter
+RUN jupyter notebook --generate-config && \
+    sed -i "s/#c.NotebookApp.password = ''/c.NotebookApp.password = u'sha1:d9f0b9860fd2:ef1564d7be1f0c797b8c8c4cd76442defc00f69a'/" ~/.jupyter/jupyter_notebook_config.py
 
 # Build vim with python3 support
 RUN vim/vim.sh
@@ -54,6 +57,7 @@ RUN vim/vimrc/vimrc.sh
 # Build YouCompleteMe with C support
 RUN vim/plugins/ycm/cmake.sh && \
     vim/plugins/ycm/ycm.sh
+
 
 # Back to $HOME
 WORKDIR $home
