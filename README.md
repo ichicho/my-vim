@@ -1,6 +1,11 @@
 # my-vim
 
 ## Dockerfile instruction
+Besides building the image on your own, you also can pull it from *Docker Hub* with:
+```
+docker pull ichicho/my-vim:torch
+```
+
 ### Build Image
 ```
 docker build -t my-vim:torch --no-cache -f ./docker/Dockerfile .
@@ -14,10 +19,10 @@ docker run --runtime=nvidia -d -p 18888:8888 --name my-vim --rm my-vim:torch
 
 ### Run Bash in Container
 ```
-docker exec -it my-vim /bin/bash`
+docker exec -it my-vim /bin/bash
 ```
 
-### Run Jupyter in Container
+### Run JupyterLab in Container
 ```
 docker exec -d my-vim /bin/bash -c "jupyter lab --notebook-dir=/home/vimmer/project --ip=0.0.0.0 --no-browser"
 ```
