@@ -19,7 +19,7 @@ docker exec -it my-vim /bin/bash`
 
 ### Run Jupyter in Container
 ```
-docker exec -d my-vim /bin/bash -c "jupyter lab --notebook-dir=/home/vimmer/project --ip=0.0.0.0 --no-browser
+docker exec -d my-vim /bin/bash -c "jupyter lab --notebook-dir=/home/vimmer/project --ip=0.0.0.0 --no-browser"
 ```
 
 ## Appendix
