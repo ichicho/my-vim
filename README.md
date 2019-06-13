@@ -1,36 +1,50 @@
 # my-vim
 
-## Build Vim from source
+## Dockerfile instruction
+Besides building the image on your own, you also can pull it from *Docker Hub* with:
 ```
-git clone https://github.com/vim/vim.git
-cd vim
-./configure --with-features=huge \
-            --enable-multibyte \
-            --enable-python3interp=yes \
-            --with-python3-command=/usr/local/bin/python3.7 \
-            --with-python3-config-dir=/usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu \
-            --enable-cscope
-make
-sudo make install
+docker pull ichicho/my-vim:torch
 ```
 
-Reference:
-
-https://vim-jp.org/docs/build_linux.html
-
-https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
-
-## Build Python from source
+### Build Image
 ```
-wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
-# or download XZ-compressed-source-tarball from www.python.org
-tar xf Python-3.7.3.tar.xz
-cd Python-3.7.3
-./configure --enable-optimizations \
-            --enable-shared
-make -j8
-sudo make altinstall
+docker build -t my-vim:torch --no-cache -f ./docker/Dockerfile .
+```
+If DNS of image doesn't work, add `--network host` option to `docker build` command.
+
+### Start Container
+```
+docker run --runtime=nvidia -d -p 18888:8888 --name my-vim --rm my-vim:torch
 ```
 
-Reference:
-https://solarianprogrammer.com/2017/06/30/building-python-ubuntu-wsl-debian/
+### Run Bash in Container
+```
+docker exec -it my-vim /bin/bash
+```
+
+### Run JupyterLab in Container
+```
+docker exec -d my-vim /bin/bash -c "jupyter lab --notebook-dir=/home/vimmer/project --ip=0.0.0.0 --no-browser"
+```
+
+## Appendix
+### Split a file
+```
+split --bytes=3G image.tar splited_file
+```
+
+### Join files
+```
+cat splited_file* > image.tar
+```
+
+### Save image
+```
+docker save --output image.tar image_tag
+```
+
+### Load image
+```
+docker load --input image.tar
+```
+
