@@ -27,3 +27,6 @@ set hlsearch
 set incsearch
 
 set backspace=indent,eol,start
+
+" YCM setting
+let g:ycm_autoclose_preview_window_after_completion = 1
