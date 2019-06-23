@@ -23,10 +23,19 @@ autocmd BufRead * normal zR
 " Enable folding with the spacebar
 nnoremap <space> za
 
+" Highlight search results
 set hlsearch
+" Search as you type
 set incsearch
 
+" Fix backspace behavior
 set backspace=indent,eol,start
+
+" Navigate windows with <Ctrl-hjkl> instead of <Ctrl-w> followed by hjkl
+noremap <c-h> <c-w><c-h>
+noremap <c-j> <c-w><c-j>
+noremap <c-k> <c-w><c-k>
+noremap <c-l> <c-w><c-l>
 
 " YCM setting
 let g:ycm_autoclose_preview_window_after_completion = 1
