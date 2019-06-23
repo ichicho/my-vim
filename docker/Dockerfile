@@ -5,6 +5,7 @@ ARG user=vimmer
 ARG home=/home/$user
 ARG env=myenv
 ARG python_version=3.7.3
+ARG repo=$home/my-vim
 
 SHELL ["/bin/bash", "-c"]
 
@@ -23,11 +24,11 @@ RUN useradd -ms /bin/bash $user && \
     usermod -aG sudo $user && \
     echo "$user ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/$user
 USER $user
-WORKDIR $home
 
-# Download code for installation
-RUN git clone https://github.com/ichicho/my-vim.git
-WORKDIR $home/my-vim
+# Copy code for installation
+COPY . $repo
+RUN sudo chown -R $user:$user $repo
+WORKDIR $repo
 RUN git checkout torch
 
 # Install miniconda
