@@ -29,7 +29,6 @@ USER $user
 COPY . $repo
 RUN sudo chown -R $user:$user $repo
 WORKDIR $repo
-RUN git checkout torch
 
 # Install miniconda
 RUN conda_python/miniconda.sh
