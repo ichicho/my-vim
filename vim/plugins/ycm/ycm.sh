@@ -2,7 +2,7 @@
 
 # Download YouCompleteMe
 mkdir -p ~/.vim/pack/plugins/start
-git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim/pack/plugins/start
+git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim/pack/plugins/start/YouCompleteMe
 cd ~/.vim/pack/plugins/start/YouCompleteMe
 git submodule update --init --recursive
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git clone https://github.com/vim/vim.git ~
+git clone https://github.com/vim/vim.git ~/vim
 
 cd ~/vim
 ./configure --with-features=huge \
