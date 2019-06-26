@@ -3,12 +3,10 @@ set encoding=utf-8 " Encoding
 set backspace=indent,eol,start " Fix backspace behavior
 
 " => Looks
+set t_Co=256 " Enable 256 colors in vim
 syntax on " Enable syntax highlighting
 set number " Show line numbers
-set ruler " Ruler (Line, column and % at the right bottom)
 set showmatch " Show the matching part of the pair for [] {} and ()
-set showcmd " Show last command in the status line
-set laststatus=2 " Always show statusline
 
 " => Search
 set hlsearch " Highlight search results
@@ -32,3 +30,7 @@ noremap <c-l> <c-w><c-l>
 
 " => YCM setting
 let g:ycm_autoclose_preview_window_after_completion = 1
+
+" => airline setting
+set laststatus=2 " Always show statusline
+let g:airline_extensions = [] " Disable all extensions

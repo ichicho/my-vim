@@ -1,10 +1,12 @@
 FROM nvidia/cuda:10.0-cudnn7-runtime-ubuntu18.04
 LABEL maintainer="Yichi Zhang <ichicho@keio.jp>"
 
-ARG user=vimmer
-ARG home=/home/$user
+ARG user=ichicho
 ARG env=myenv
 ARG python_version=3.7.3
+# And don't forget to change jupyter password or you cannot enter it
+
+ARG home=/home/$user
 ARG repo=$home/my-vim
 
 SHELL ["/bin/bash", "-c"]
