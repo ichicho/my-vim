@@ -58,6 +58,9 @@ RUN vim/vimrc/vimrc.sh
 RUN vim/plugins/ycm/cmake.sh && \
     vim/plugins/ycm/ycm.sh
 
+# Download airline
+RUN vim/plugins/airline/airline.sh
+
 
 # Back to $HOME
 WORKDIR $home
