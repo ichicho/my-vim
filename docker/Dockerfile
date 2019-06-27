@@ -1,11 +1,10 @@
 # Caution
-# This docker project should be built and be run only on Linux environment
+# Container built from this Dockerfile should be run only on Linux environment
 
 FROM nvidia/cuda:10.0-cudnn7-runtime-ubuntu18.04
 LABEL maintainer="Yichi Zhang <ichicho@keio.jp>"
 
-# Load from host environment during docker build command
-# to fix permission problem when mounting files from host machine
+# Load from docker build command to fix permission problem when mounting files from host machine
 ARG user
 ARG uid
 ARG group
@@ -33,7 +32,7 @@ RUN apt update && \
                 build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-# Create user and add to sudo group
+# Create user
 RUN groupadd $group -g $gid && \
     useradd $user \
             -m -s /bin/bash \
@@ -43,7 +42,7 @@ RUN groupadd $group -g $gid && \
     echo "$user ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/$user
 USER $user
 
-# Copy code for installation
+# Copy repo
 COPY . $repo
 RUN sudo chown -R $user:$group $repo
 WORKDIR $repo
@@ -51,7 +50,7 @@ WORKDIR $repo
 # Install miniconda
 RUN conda_python/miniconda.sh
 
-# Set environment variable for bash in docker file to get conda work
+# Set environment variable for bash to get conda work in docker file
 RUN sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</ p' $home/.bashrc > $home/.bash_conda_init 
 ENV BASH_ENV=~/.bash_conda_init
 
@@ -60,7 +59,7 @@ RUN conda create -y --name $env python=$python_version && \
     echo "conda activate $env" >> $home/.bash_conda_init && \
     echo "conda activate $env" >> $home/.bashrc
 
-# Install packages
+# Install conda packages
 RUN conda_python/packages.sh
 
 # Build vim with python3 support
@@ -69,7 +68,7 @@ RUN vim/vim.sh
 # Configure vim
 RUN vim/vimrc/vimrc.sh
 
-# Build YouCompleteMe with C support
+# Build YouCompleteMe with python support
 RUN vim/plugins/ycm/cmake.sh && \
     vim/plugins/ycm/ycm.sh
 
