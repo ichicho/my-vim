@@ -9,25 +9,25 @@ Please build the docker image from root directory of the repository.(change dire
 If you build the image and run the container on **same** machine, execute:
 ```
 docker build -t my-vim -f ./docker/Dockerfile . \
-       --build-arg user=$(id -un) \
-       --build-arg uid=$(id -u) \
-       --build-arg group=$(id -gn) \
-       --build-arg gid=$(id -g)
+             --build-arg user=$(id -un) \
+             --build-arg uid=$(id -u) \
+             --build-arg group=$(id -gn) \
+             --build-arg gid=$(id -g)
 ```
 
 If you build the image and run the container on **different** machine, please check user, uid, group, gid of the machine which will run the container later. And then replace `$USER`, `$UID`, `$GROUP`, `$GID` with them in following command and execute it:
 ```
 docker build -t my-vim -f ./docker/Dockerfile . \
-       --build-arg user=$USER \
-       --build-arg uid=$UID \
-       --build-arg group=$GROUP \
-       --build-arg gid=$GID
+             --build-arg user=$USER \
+             --build-arg uid=$UID \
+             --build-arg group=$GROUP \
+             --build-arg gid=$GID
 ```
 If DNS of image doesn't work, add `--network host` option to `docker build` command.
 
 #### Start Container
 ```
-docker run --runtime=nvidia -d -p 18888:8888 --name my-vim --rm my-vim:torch
+docker run --runtime=nvidia -d -p $HOST_PORT:$CONTAINER_PORT --name my-vim -v $PATH_IN_HOST:$PATH_IN_CONTAINER my-vim
 ```
 
 #### Run Bash in Container
