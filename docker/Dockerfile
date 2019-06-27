@@ -45,7 +45,7 @@ USER $user
 
 # Copy code for installation
 COPY . $repo
-RUN sudo chown -R $user:$user $repo
+RUN sudo chown -R $user:$group $repo
 WORKDIR $repo
 
 # Install miniconda
