@@ -1,15 +1,27 @@
+# Caution
+# This docker project should be built and be run only on Linux environment
+
 FROM nvidia/cuda:10.0-cudnn7-runtime-ubuntu18.04
 LABEL maintainer="Yichi Zhang <ichicho@keio.jp>"
 
-ARG user=ichicho
+# Load from host environment during docker build command
+# to fix permission problem when mounting files from host machine
+ARG user
+ARG uid
+ARG group
+ARG gid
+
+# Optional
 ARG env=myenv
 ARG python_version=3.7.3
-# And don't forget to change jupyter password or you cannot enter it
 
+
+# >>> Build starts >>>
+
+# Change login shell
+SHELL ["/bin/bash", "-c"]
 ARG home=/home/$user
 ARG repo=$home/my-vim
-
-SHELL ["/bin/bash", "-c"]
 
 # Install basic tools
 RUN apt update && \
@@ -22,8 +34,12 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 # Create user and add to sudo group
-RUN useradd -ms /bin/bash $user && \
-    usermod -aG sudo $user && \
+RUN groupadd $group -g $gid && \
+    useradd $user \
+            -m -s /bin/bash \
+            -u $uid \
+            -g $group \
+            -G sudo && \
     echo "$user ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/$user
 USER $user
 
@@ -35,7 +51,7 @@ WORKDIR $repo
 # Install miniconda
 RUN conda_python/miniconda.sh
 
-# Set environment variable for bash in docker file
+# Set environment variable for bash in docker file to get conda work
 RUN sed -n '/# >>> conda initialize >>>/,/# <<< conda initialize <<</ p' $home/.bashrc > $home/.bash_conda_init 
 ENV BASH_ENV=~/.bash_conda_init
 
@@ -46,9 +62,6 @@ RUN conda create -y --name $env python=$python_version && \
 
 # Install packages
 RUN conda_python/packages.sh
-# Set password for jupyter
-RUN jupyter notebook --generate-config && \
-    sed -i "s/#c.NotebookApp.password = ''/c.NotebookApp.password = u'sha1:d9f0b9860fd2:ef1564d7be1f0c797b8c8c4cd76442defc00f69a'/" ~/.jupyter/jupyter_notebook_config.py
 
 # Build vim with python3 support
 RUN vim/vim.sh
@@ -62,6 +75,8 @@ RUN vim/plugins/ycm/cmake.sh && \
 
 # Download airline
 RUN vim/plugins/airline/airline.sh
+
+# <<< Build ends <<<
 
 
 # Back to $HOME
