@@ -8,7 +8,7 @@ Please build the docker image from root directory of the repository.(change dire
 
 If you build the image and run the container on **same** machine, execute:
 ```
-docker build -f docker/Dockerfile -t my-vim --no-cache . \
+docker build -f docker/Dockerfile -t my-vim . \
              --build-arg user=$(id -un) \
              --build-arg uid=$(id -u) \
              --build-arg group=$(id -gn) \
@@ -17,7 +17,7 @@ docker build -f docker/Dockerfile -t my-vim --no-cache . \
 
 If you build the image and run the container on **different** machine, please check user, uid, group, gid of the machine which will run the container later. And then replace `$USER`, `$UID`, `$GROUP`, `$GID` with them in following command and execute it:
 ```
-docker build -f docker/Dockerfile -t my-vim --no-cache . \
+docker build -f docker/Dockerfile -t my-vim . \
              --build-arg user=$USER \
              --build-arg uid=$UID \
              --build-arg group=$GROUP \
