@@ -1,0 +1,11 @@
+#!/bin/bash
+# Set ARGs for server in radiology department
+
+# Change to root directory of the repository
+cd ..
+docker build -f docker/Dockerfile -t $IMAGE_NAME --no-cache . \
+             --build-arg user=cho \
+             --build-arg uid=1003 \
+             --build-arg group=hashimoto \
+             --build-arg gid=1001
+
