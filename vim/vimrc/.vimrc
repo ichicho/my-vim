@@ -33,4 +33,5 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 " => airline setting
 set laststatus=2 " Always show statusline
-let g:airline_extensions = [] " Disable all extensions
+let g:airline_exclude_preview = 1
+let g:airline_extensions = ['branch'] " Enable specific extensions

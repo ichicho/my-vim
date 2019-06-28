@@ -75,6 +75,9 @@ RUN vim/plugins/ycm/cmake.sh && \
 # Download airline
 RUN vim/plugins/airline/airline.sh
 
+# Download fugitive
+RUN vim/plugins/fugitive/fugitive.sh
+
 # <<< Build ends <<<
 
 
