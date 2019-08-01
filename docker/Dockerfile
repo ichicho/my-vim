@@ -11,6 +11,8 @@ RUN apt update && \
                 ca-certificates \
                 curl \
                 git \
+                less \
+                ack-grep \
                 build-essential && \
     rm -rf /var/lib/apt/lists/*
 
