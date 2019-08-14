@@ -1,6 +1,8 @@
 " => Basic
 set encoding=utf-8 " Encoding
 set backspace=indent,eol,start " Fix backspace behavior
+set splitright " Create new window at right
+set splitbelow " Create new window below
 
 " => Looks
 set t_Co=256 " Enable 256 colors in vim
@@ -11,6 +13,7 @@ set showmatch " Show the matching part of the pair for [] {} and ()
 " => Search
 set hlsearch " Highlight search results
 set incsearch " Search as you type
+set wildmenu " Command-line completion
 
 " => Indent
 filetype plugin indent on " Enable file type based indentation
