@@ -27,7 +27,7 @@ If DNS of image doesn't work, add `--network host` option to `docker build` comm
 
 #### Start Container
 ```
-docker run --runtime=nvidia -d -p $HOST_PORT:$CONTAINER_PORT --name my-vim -v $PATH_IN_HOST:$PATH_IN_CONTAINER my-vim
+docker run --gpus all -d -p $HOST_PORT:$CONTAINER_PORT --name my-vim -v $PATH_IN_HOST:$PATH_IN_CONTAINER my-vim
 ```
 
 #### Run Bash in Container
@@ -41,23 +41,17 @@ docker exec -d my-vim /bin/bash -c "jupyter lab --notebook-dir=/home/vimmer/proj
 ```
 
 ### Docker Appendix
-#### Split a file
-```
-split --bytes=3G image.tar splited_file
-```
-
-#### Join files
-```
-cat splited_file* > image.tar
-```
-
 #### Save image
 ```
-docker save --output image.tar image_tag
+docker save image_name:tag | gzip > image.tar.gz
+# split the image to smaller parts
+docker save image_name:tag | gzip -c | split --bytes=4G - image.tar.gz
 ```
 
 #### Load image
 ```
-docker load --input image.tar
+docker load --input image.tar.gz
+# load from splited .tar.gz
+cat image.tar.gz* | docker load
 ```
 
